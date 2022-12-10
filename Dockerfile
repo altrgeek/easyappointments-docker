@@ -3,9 +3,9 @@
 # Based on Alpine
 ############################################################
 
-FROM jamrizzi/php-nginx-alpine:php7
+FROM altrgeek/nginx-php-alpine:latest
 
-MAINTAINER Jam Risser (jamrizzi)
+MAINTAINER Rumman Zaman (altrgeek)
 
 ENV BASE_URL=http://localhost:8888
 ENV LANGUAGE=english
@@ -26,15 +26,15 @@ EXPOSE 8888
 WORKDIR /app/www/
 
 RUN apk add --no-cache \
-        php7-ctype \
-        php7-curl \
-        php7-session \
+        php81-ctype \
+        php81-curl \
+        php81-session \
         tzdata
 
-ADD https://github.com/alextselegidis/easyappointments/releases/download/1.4.1/easyappointments-1.4.1.zip /app/www/
+ADD https://github.com/alextselegidis/easyappointments/releases/download/1.4.3/easyappointments-1.4.3.zip /app/www/
 
-RUN unzip -o /app/www/easyappointments-1.4.1.zip && \
-    rm easyappointments-1.4.1.zip
+RUN unzip -o /app/www/easyappointments-1.4.3.zip && \
+    rm easyappointments-1.4.3.zip
 COPY ./patch.sh /app/.tmp/patch.sh
 COPY ./app/ /app/
 RUN sh /app/.tmp/patch.sh && \

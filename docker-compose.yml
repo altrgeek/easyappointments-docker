@@ -1,18 +1,26 @@
 version: "2"
 services:
-  easyappointments-data:
+  db:
     image: mariadb:latest
+    container_name: mariadb
     environment:
       MYSQL_DATABASE: easyappointments
       MYSQL_ROOT_PASSWORD: hellodocker
+    networks:
+      - app
 
-  easyappointments:
-    image: jamrizzi/easyappointments:latest
+  www:
+    image: altrgeek/easyappointments:latest
+    container_name: easyappointments
     environment:
       DB_NAME: easyappointments
       DB_PASSWORD: hellodocker
       BASE_URL: http://localhost:8888
     ports:
       - 8888:8888
-    links:
-      - easyappointments-data:db
+    networks:
+      - app
+
+networks:
+  app:
+    driver: bridge

@@ -10,14 +10,14 @@ def main(argv):
 
 def set_timezone():
     lines = list()
-    with open('/etc/php7/php.ini') as f:
+    with open('/etc/php81/php.ini') as f:
         for line in f.readlines():
             if ';date.timezone' in line:
                 lines.append('date.timezone = ' + os.environ['TZ'] + '\n')
             else:
                 lines.append(line)
         f.close()
-    with open('/etc/php7/php.ini', 'w') as f:
+    with open('/etc/php81/php.ini', 'w') as f:
         f.writelines(lines)
 
 def init_config(config_file):
